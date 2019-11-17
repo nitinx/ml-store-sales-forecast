@@ -53,21 +53,21 @@ This will open the iPython Notebook software and project file in your browser.
 ### Data
 The dataset for this project is provided by Walmart on [Kaggle](https://www.kaggle.com/c/walmart-recruiting-store-sales-forecasting/data) and contains 4 files. 
 
-1. stores.csv: Contains anonymized information about the 45 stores, indicating the type and size of store.
-   - Row Count: 45
-   - File Size: 1 KB
+1. **stores.csv**: Contains anonymized information about the 45 stores, indicating the type and size of store.
+   - `Row Count: 45`
+   - `File Size: 1 KB`
 
-2. features.csv: Contains additional data related to the store, department, and regional activity for the given dates. 
-   - Row Count: 8191
-   - File Size: 579 KB
+2. **features.csv**: Contains additional data related to the store, department, and regional activity for the given dates. 
+   - `Row Count: 8191`
+   - `File Size: 579 KB`
 
-3. train.csv: This is the historical training data, which covers to 2010-02-05 to 2012-11-01
-   - Row Count: 422000
-   - File Size: 12542 KB
+3. **train.csv**: This is the historical training data, which covers to 2010-02-05 to 2012-11-01
+   - `Row Count: 422000`
+   - `File Size: 12542 KB`
 
-4. test.csv: Identical to train.csv, except weekly sales data is withheld. 
-   - Row Count: 115000
-   - File Size: 2538 KB
+4. **test.csv**: Identical to train.csv, except weekly sales data is withheld. 
+   - `Row Count: 115000`
+   - `File Size: 2538 KB`
 
 **Features**
 - `Store`: Store Number
