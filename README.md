@@ -1,24 +1,15 @@
 # Supervised Learning
-## Project: Walmart Store Sales Forecast
+## Capstone Project: Walmart Store Sales Forecast
 
 ## Project Overview
-In this project, you will apply supervised learning techniques and an analytical mind on data collected for the U.S. census to help CharityML (a fictitious charity organization) identify people most likely to donate to their cause. Your goal with this implementation is to construct a model that accurately predicts whether an individual makes more than $50,000. This sort of task can arise in a non-profit setting, where organizations survive on donations. Understanding an individual's income can help a non-profit better understand how large of a donation to request, or whether or not they should reach out to begin with. While it can be difficult to determine an individual's general income bracket directly from public sources, we can (as we will see) infer this value from other publically available features.
+Walmart is an American multinational retail corporation that operates a chain of hypermarkets, department stores and grocery stores. As of Jul 2019, Walmart has 11,200 stores in 27 countries with revenues exceeding $500 billion. A challenge facing the retail industry such as Walmart’s is to ensure the supply chain and warehouse space usage is optimized to ensure supply meets demand effectively, especially during spikes such as the holiday seasons. 
+This is where accurate sales forecasting enable companies to make informed business decisions. Companies can base their forecasts on past sales data, industry-wide comparisons and economic trends. However, a forecasting challenge is the need to make decisions based on limited history. If Christmas comes but once a year, so does the chance to see how strategic decisions impacted the bottom line. 
 
-You will first explore the data to learn how the census data is recorded. Next, you will apply a series of transformations and preprocessing techniques to manipulate the data into a workable format. You will then evaluate several supervised learners of your choice on the data, and consider which is best suited for the solution. Afterwards, you will optimize the model you've selected and present it as your solution to CharityML. Finally, you will explore the chosen model and its predictions under the hood, to see just how well it's performing when considering the data it's given.
+## Problem Statement
+Historical sales data for 45 Walmart stores located in different regions has been provided. Each store contains many departments, and the sales for each department in each store needs to be projected. Additionally, Walmart runs several promotional markdown events throughout the year. These markdowns precede prominent holidays, the four largest of which are the Super Bowl, Labor Day, Thanksgiving, and Christmas. The weeks including these holidays are weighted five times higher in the evaluation than non-holiday weeks. These markdowns are known to affect sales, but it is challenging to predict which departments are affected and the extent of the impact.
 
-Kaggle URL: https://www.kaggle.com/c/walmart-recruiting-store-sales-forecasting/overview
+This problem is sourced from Walmart's [Kaggle Competition](https://www.kaggle.com/c/walmart-recruiting-store-sales-forecasting/overview).
 
-Dataset: https://www.kaggle.com/c/walmart-recruiting-store-sales-forecasting/data
-
-
-## Project Highlights
-This project is designed to get you acquainted with the many supervised learning algorithms available in sklearn, and to also provide for a method of evaluating just how each model works and performs on a certain type of data. It is important in machine learning to understand exactly when and where a certain algorithm should be used, and when one should be avoided.
-
-Things you will learn by completing this project:
-- How to identify when preprocessing is needed, and how to apply it.
-- How to establish a benchmark for a solution to the problem.
-- What each of several supervised learning algorithms accomplishes given a specific dataset.
-- How to investigate whether a candidate solution model is adequate for the problem.
 
 ### Install
 
@@ -27,30 +18,23 @@ This project requires **Python 3.x** and the following Python libraries installe
 - [NumPy](http://www.numpy.org/)
 - [Pandas](http://pandas.pydata.org)
 - [matplotlib](http://matplotlib.org/)
+- [Seaborn](https://seaborn.pydata.org/)
 - [scikit-learn](http://scikit-learn.org/stable/)
-
-### Software Requirements
-- Python >= 3.6
-- numpy >= 1.14.3
-- pandas >= 0.23.0
-- scikit-learn >= 0.19.1
-- xgboost == 0.90
-- lightgbm > 2.21
-- seaborn == 0.90
-- matplotlib >=3.1.0
-
+- [XGBoost](https://xgboost.readthedocs.io/)
+- [LightGBM](https://lightgbm.readthedocs.io/en/latest/)
 
 You will also need to have software installed to run and execute an [iPython Notebook](http://ipython.org/notebook.html)
 
 ### Code
 
-This project contains three files:
+This project contains four files:
 
-- `finding_donors.ipynb`: This is the main file where you will be performing your work on the project.
-- `census.csv`: The project dataset. You'll load this data in the notebook.
-- `visuals.py`: A Python file containing visualization code that is run behind-the-scenes. Do not modify
+- `WalmartStoreSales.ipynb`: This is the main Jupyter Notebook with the project code.
+- `stores.csv`: The stores dataset. Will be processed by the notebook.
+- `features.csv`: The features dataset. Will be processed by the notebook.
+- `train.csv`: The training dataset. Will be processed by the notebook.
+- `test.csv`: The testing dataset. Will be processed by the notebook.
 
-Template code is provided in the `finding_donors.ipynb` notebook file. You will also be required to use the included `visuals.py` Python file and the `census.csv` dataset file to complete your work. While some code has already been implemented to get you started, you will need to implement additional functionality when requested to successfully complete the project. Note that the code included in `visuals.py` is meant to be used out-of-the-box and not intended for students to manipulate. If you are interested in how the visualizations are created in the notebook, please feel free to explore this Python file.
 
 ### Run
 
@@ -67,23 +51,43 @@ jupyter notebook WalmartStoreSales.ipynb
 This will open the iPython Notebook software and project file in your browser.
 
 ### Data
+The dataset for this project is provided by Walmart on [Kaggle](https://www.kaggle.com/c/walmart-recruiting-store-sales-forecasting/data) and contains 4 files. 
 
-The dataset for this project originates from the UCI Machine Learning Repository. The datset was donated by Ron Kohavi and Barry Becker, after being published in the article *"Scaling Up the Accuracy of Naive-Bayes Classifiers: a Decision-Tree Hybrid",* by Ron Kohavi. You may find this paper [online](https://www.aaai.org/Papers/KDD/1996/KDD96-033.pdf), with the original dataset hosted on [UCI](https://archive.ics.uci.edu/ml/datasets/Census+Income). The data we investigate here consists of small changes to the original dataset, such as removing the 'fnlwgt' feature and records with missing or ill-formatted entries. The modified census dataset consists of approximately 32,000 data points, with each datapoint having 13 features. 
+1. stores.csv: Contains anonymized information about the 45 stores, indicating the type and size of store.
+   - Row Count: 45
+   - File Size: 1 KB
+
+2. features.csv: Contains additional data related to the store, department, and regional activity for the given dates. 
+   - Row Count: 8191
+   - File Size: 579 KB
+
+3. train.csv: This is the historical training data, which covers to 2010-02-05 to 2012-11-01
+   - Row Count: 422000
+   - File Size: 12542 KB
+
+4. test.csv: Identical to train.csv, except weekly sales data is withheld. 
+   - Row Count: 115000
+   - File Size: 2538 KB
 
 **Features**
-- `age`: Age
-- `workclass`: Working Class (Private, Self-emp-not-inc, Self-emp-inc, Federal-gov, Local-gov, State-gov, Without-pay, Never-worked)
-- `education_level`: Level of Education (Bachelors, Some-college, 11th, HS-grad, Prof-school, Assoc-acdm, Assoc-voc, 9th, 7th-8th, 12th, Masters, 1st-4th, 10th, Doctorate, 5th-6th, Preschool)
-- `education-num`: Number of educational years completed
-- `marital-status`: Marital status (Married-civ-spouse, Divorced, Never-married, Separated, Widowed, Married-spouse-absent, Married-AF-spouse)
-- `occupation`: Work Occupation (Tech-support, Craft-repair, Other-service, Sales, Exec-managerial, Prof-specialty, Handlers-cleaners, Machine-op-inspct, Adm-clerical, Farming-fishing, Transport-moving, Priv-house-serv, Protective-serv, Armed-Forces)
-- `relationship`: Relationship Status (Wife, Own-child, Husband, Not-in-family, Other-relative, Unmarried)
-- `race`: Race (White, Asian-Pac-Islander, Amer-Indian-Eskimo, Other, Black)
-- `sex`: Sex (Female, Male)
-- `capital-gain`: Monetary Capital Gains
-- `capital-loss`: Monetary Capital Losses
-- `hours-per-week`: Average Hours Per Week Worked
-- `native-country`: Native Country (United-States, Cambodia, England, Puerto-Rico, Canada, Germany, Outlying-US(Guam-USVI-etc), India, Japan, Greece, South, China, Cuba, Iran, Honduras, Philippines, Italy, Poland, Jamaica, Vietnam, Mexico, Portugal, Ireland, France, Dominican-Republic, Laos, Ecuador, Taiwan, Haiti, Columbia, Hungary, Guatemala, Nicaragua, Scotland, Thailand, Yugoslavia, El-Salvador, Trinadad&Tobago, Peru, Hong, Holand-Netherlands)
+- `Store`: Store Number
+- `Type`: Store Type (A, B & C)
+- `Size`: Store Size
+- `Date`: The Week (YYYY-MM-DD)
+- `Temperature`: Average Temperature
+- `Fuel_Price`: Cost of Fuel
+- `MarkDown1`: Promotional Markdown #1
+- `MarkDown2`: Promotional Markdown #2
+- `MarkDown3`: Promotional Markdown #3
+- `MarkDown4`: Promotional Markdown #4
+- `MarkDown5`: Promotional Markdown $5
+- `CPI`: Consumer Price Index
+- `Unemployment`: Unemployment Rate
+- `IsHoliday`: Is Holiday Week (Y or N)
+- `Dept`: Department Number
 
 **Target Variable**
-- `income`: Income Class (<=50K, >50K)
+- `Weekly_Sales`: Weekly Sales
+
+### Appendix
+My solution to the problem is also available as a [Kaggle Kernel](https://www.kaggle.com/nitinx/storesales-randomforest-light-gbm-stacking)
